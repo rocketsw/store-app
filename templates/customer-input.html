@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color:lightblue">
+<style type=text/css>
+  .my-btn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 0 90px;
+  }
+  .dropdown-menu {
+    background-color: lightblue;
+    padding: 0 90px;
+  }
+  .my-small-btn {
+    width:100px;
+    padding:5px;
+  }
+  .body {
+    background-color:lightblue;
+  }
+  h1 {
+  color: white;
+  text-align: center;
+  }
+</style>
+
+<h1>Add Customer</h1>
+<div class="container">
+<br>
+<div class="row rowht">
+  <div class="col-sm-3 labeltext">First Name</div>
+  <div class="col-sm-2" style="color:black;"><input type="text" id="firstName"></div>
+  <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+  <div class="col-sm-3 labeltext">Last Name</div>
+  <div class="col-sm-2"><input type="text" id="lastName"></div>
+  <div class="col-sm-7"></div>
+</div>
+<div class="row">
+   <div class="col-sm-1"></div>
+   <div class="col-sm-2"> <button class="btn" type="button" onclick="submit() ">Submit</button> </div>
+   <div class="col-sm-5"></div>
+</div>
+<div class="row">
+   <div class="col-sm-1"></div>
+   <div class="col-sm-10"><textarea rows="4" cols="50" id="answer"></textarea></div>
+   <div class="col-sm-1"></div>
+</div>
+
+
+</div>
+<script>
+function $(id) { return document.getElementById(id); }
+
+function onClick() { $("fillin").value = "Hello"; }
+
+function submit() {
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+  var customerParamStr = "firstName=" + firstName + "&lastName=" + lastName;
+  // url will be something like http://localhost:5000/add?arg1=2&arg2=3
+  var url = "http://localhost:5000/addCustomerToDB?" + customerParamStr;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200){
+      callBackFct(this);
+    }
+  }
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+function request() {
+  var arg1 = "";
+  var url = "http://localhost:5000/?arg1=" + arg1;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200){
+      callBackFct(this);
+    }
+  }
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+function callBackFct(xhttp) {
+  $("answer").value = xhttp.responseText;
+}
+</script>
+</body>
+</html>
