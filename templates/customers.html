@@ -55,8 +55,8 @@ function onLoad() {
 function loadCustomers(httpResponse)
 {
   var i;
-  var jsonObj = JSON.parse(httpResponse.responseText);
-  var tablehtml="<table style=\"background-color: white;\"><tr><th>Select</th><th>First Name</th><th>Last Name</th><th>Street</th><th>City</th><th>State</th><th>Zip</th><th>Phone</th></tr>";
+  //var jsonObj = JSON.parse(httpResponse.responseText);
+  var tablehtml="<table style=\"background-color: white;\"><tr><th>Select</th><th>First Name</th><th>Last Name</th><th>Street</th><th>City</th><th>State</th><th>Zip</th><th>Phone</th></tr></table>";
 
   document.getElementById("customers").innerHTML = tablehtml;
 }
