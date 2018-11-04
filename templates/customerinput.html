@@ -1,16 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Add Customer</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color:lightblue">
+<body>
 <style type=text/css>
+  body {
+   background-color: rgb(0, 15,43) ;
+  }
+  .labeltext {
+    color: white;
+    text-align: right;
+    padding-right:0px;
+    padding-bottom:1px;
+  }
   .my-btn {
     background-color: dodgerblue;
     color: white;
@@ -24,12 +32,15 @@
     width:100px;
     padding:5px;
   }
-  .body {
-    background-color:lightblue;
-  }
   h1 {
   color: white;
   text-align: center;
+  }
+  .rowht {
+    height:15px;
+  }
+  .input {
+    padding-left: 10px;
   }
 </style>
 
@@ -37,24 +48,23 @@
 <div class="container">
 <br>
 <div class="row rowht">
-  <div class="col-sm-3 labeltext">First Name</div>
-  <div class="col-sm-2" style="color:black;"><input type="text" id="firstName"></div>
-  <div class="col-sm-7"></div>
+  <div class="col-sm-2 labeltext">First Name</div>
+  <div class="col-sm-2 input" style="color:black;"><input type="text" id="firstName"></div>
+  <div class="col-sm-2 labeltext">Last Name</div>
+  <div class="col-sm-3 input"><input type="text" id="lastName"></div>
 </div>
-<br>
-<div class="row rowht">
-  <div class="col-sm-3 labeltext">Last Name</div>
-  <div class="col-sm-2"><input type="text" id="lastName"></div>
-  <div class="col-sm-7"></div>
-</div>
+
+<br><br>
 <div class="row">
-   <div class="col-sm-1"></div>
+   <div class="col-sm-3"></div>
    <div class="col-sm-2"> <button class="btn" type="button" onclick="submit() ">Submit</button> </div>
-   <div class="col-sm-5"></div>
+   <div class="col-sm-7"></div>
 </div>
+
+<br>
 <div class="row">
    <div class="col-sm-1"></div>
-   <div class="col-sm-10"><textarea rows="4" cols="50" id="answer"></textarea></div>
+   <div class="col-sm-10"><textarea rows="4" cols="70" id="answer"></textarea></div>
    <div class="col-sm-1"></div>
 </div>
 
@@ -63,37 +73,25 @@
 <script>
 function $(id) { return document.getElementById(id); }
 
-function onClick() { $("fillin").value = "Hello"; }
-
 function submit() {
   var firstName = document.getElementById("firstName").value;
   var lastName = document.getElementById("lastName").value;
-  var customerParamStr = "firstName=" + firstName + "&lastName=" + lastName;
+
+  var customerParamStr = "firstName=" + firstName + "&lastName=" + lastName ;
+  console.log( customerParamStr )
   // url will be something like http://localhost:5000/add?arg1=2&arg2=3
   var url = "http://localhost:5000/addCustomerToDB?" + customerParamStr;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200){
-      callBackFct(this);
+      afterSubmit(this);
     }
   }
   xhttp.open("GET", url, true);
   xhttp.send();
 }
 
-function request() {
-  var arg1 = "";
-  var url = "http://localhost:5000/?arg1=" + arg1;
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200){
-      callBackFct(this);
-    }
-  }
-  xhttp.open("GET", url, true);
-  xhttp.send();
-}
-function callBackFct(xhttp) {
+function afterSubmit(xhttp) {
   $("answer").value = xhttp.responseText;
 }
 </script>

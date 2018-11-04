@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MI Calculator</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<style>
+body {
+   background-color: rgb(0, 15,43) ;
+}
+h1 {
+color: white;
+text-align: center;
+}
+p {
+font-family: Verdana;
+font-size: 20px;
+}
+
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 3px;
+}
+.rowht {
+  height:10px;
+}
+select {
+  height:30px;
+}
+.labeltext {
+  color: white;
+}
+button {
+  background-color: dodgerblue;
+  color: white;
+}
+</style>
+<body onload="loadStateAbbrev()">
+<br>
+<div class="row" >
+   <div class="col-sm-1"></div>
+   <div class="col-sm-6">
+      <img class="labeltext" src="x" alt="Home Lender" >
+   </div>
+   <div class="col-sm-5"></div>
+</div>
+
+<h1>MI Calculatorx</h1>
+<div class="container">
+<br>
+<div class="row rowht">
+  <div class="col-sm-3 labeltext">Amortization Type</div>
+  <div class="col-sm-2">
+    <select id="amortizationType">
+       <option value="blank" selected="selected"</option>
+       <option value="FRM">Fixed Rate</option>
+       <option value="ARM">Adjustable Rate</option>
+    </select>
+  </div>
+  <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+  <div class="col-sm-3 labeltext">Loan Maturity Term</div>
+  <div class="col-sm-2" style="color:black;"><input type="text" id="loanTerm"></div>
+  <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+  <div class="col-sm-3 labeltext">Representative Credit Score</div>
+  <div class="col-sm-2"><input type="text" id="creditScore"></div>
+  <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+   <div class="col-sm-3 labeltext">Property State Code</div>
+   <div class="col-sm-2">
+      <select id="stateCode">
+         <option value="blank" selected="selected"></option>
+      </select>
+   </div>
+   <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+   <div class="col-sm-3 labeltext">Purchase Price</div>
+   <div class="col-sm-2"><input type="text" id="purchasePrice"></div>
+   <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+   <div class="col-sm-3 labeltext">Appraised Value</div>
+   <div class="col-sm-2"><input type="text" id="appraisedValue"></div>
+   <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+   <div class="col-sm-3 labeltext">Original Loan Amount</div>
+   <div class="col-sm-2"><input type="text" id="loanAmount"></div>
+   <div class="col-sm-7"></div>
+</div>
+<br>
+<div class="row rowht">
+   <div class="col-sm-3 labeltext">Manufactured Housing</div>
+   <label class="radio-inline">
+      <input type="radio" name="manufacturedHousing" id="manufacturedHousingYes" value="Y">Yes<br>
+   </label>
+   <label class="radio-inline">
+      <input type="radio" name="manufacturedhousing" id="manufacturedHousingNo" value="N" checked>No
+   </label>
+   <div class="col-sm-9"></div>
+</div>
+<br>
+<div class="row rowht">
+   <div class="col-sm-3 labeltext">Home Ready</div>
+      <label class="radio-inline">
+         <input type="radio" name="homeReady" id="homeReadyYes" value="Y">Yes
+      </label>
+      <label class="radio-inline">
+         <input type="radio" name="homeReady" id="homeReadyNo" value="N" checked>No
+      </label>
+     <div class="col-sm-9"></div>
+</div>
+<br>
+<div class="row rowht">
+   <div class="col-sm-3 labeltext">MHA Advantage</div>
+      <label class="radio-inline">
+         <input type="radio" name="mhaAdvantage" id="mhaAdvantageYes" value="Y">Yes
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="mhaAdvantage" id="mhaAdvantageNo" value="N" checked>No
+      </label>
+      <div class="col-sm-9"></div>
+  </div>
+<br>
+<br>
+
+<div class="row">
+   <div class="col-sm-1"></div>
+   <div class="col-sm-2"> <button class="btn" type="button" onclick="submit() ">Submit</button> </div>
+   <div class="col-sm-2"> <button class="btn" type="button" onclick="sampleData()">Sample Data</button> </div>
+   <div class="col-am-2"> <button class="btn" type="button" onclick="clearData()">Clear Data</button></div>
+   <div class="col-sm-5"></div>
+</div>
+
+
+<br>
+<hr>
+<div class="row labeltext">
+   <div class="col-sm-1"></div>
+   <div class="col-sm-1">MI Required</div>
+   <div class="col-sm-2">Standard MI Coverage %</div>
+   <div class="col-sm-2">Minimum MI Coverage %</div>
+   <div class="col-sm-2">LLPA for Minimum MI</div>
+   <div class="col-sm-2">Status Code</div>
+   <div class="col-sm-1"></div>
+</div>
+<div class="row">
+   <div class="col-sm-1"></div>
+   <div class="col-sm-1"><input id="miRequired" size="1" readonly></div>
+   <div class="col-sm-2"><input id="stdMICoverage" size="15" readonly></div>
+   <div class="col-sm-2"><input id="minMICoverage" size="15" readonly></div>
+   <div class="col-sm-2"><input id="llpaForMinMI" size="15" readonly></div>
+   <div class="col-sm-2"><input id="status" size="15" readonly></div>
+   <div class="col-sm-1"></div>
+</div>
+</div>
+<script>
+var stateAbbrevHash = {};
+function $(id) { return document.getElementById(id); }
+
+function sampleData() {
+   var amortizationTypeElement = document.getElementById("amortizationType");
+   amortizationTypeElement.options[1].selected = true;
+   document.getElementById("loanTerm").value = 240;
+   document.getElementById("creditScore").value = 100;
+   var stateCodeElement = document.getElementById("stateCode");
+   stateCodeElement.options[55].selected = true;
+   document.getElementById("appraisedValue").value = 100000;
+   document.getElementById("loanAmount").value = 90000;
+   document.getElementById("purchasePrice").value = 100000;
+   document.getElementById("manufacturedHousingNo").checked = true;
+   document.getElementById("homeReadyNo").checked = true;
+   document.getElementById("mhaAdvantageNo").checked = true;
+}
+
+function clearData() {
+   var amortizationTypeElement = document.getElementById("amortizationType");
+   amortizationTypeElement.options[0].selected = true;
+   document.getElementById("loanTerm").value = "";
+   document.getElementById("creditScore").value = "";
+   var stateCodeElement = document.getElementById("stateCode");
+   stateCodeElement.options[0].selected = true;
+   document.getElementById("appraisedValue").value = "";
+   document.getElementById("loanAmount").value = "";
+   document.getElementById("purchasePrice").value = "";
+   document.getElementById("manufacturedHousingNo").checked = true;
+   document.getElementById("homeReadyNo").checked = true;
+   document.getElementById("mhaAdvantageNo").checked = true;
+   document.getElementById("miRequired").value = "";
+   document.getElementById("stdMICoverage").value = "";
+   document.getElementById("minMICoverage").value = "";
+   document.getElementById("llpaForMinMI").value = "";
+   document.getElementById("status").value = "";
+}
+
+function checkRequired() {
+   var missingEntry = false;
+   var message = "";
+   var field = "";
+   if( document.getElementById("loanAmount").value.length == 0 ) { missingEntry = true;  field = ""; }
+   if( document.getElementById("appraisedValue").value.length == 0) { missingEntry = true;  field = ""; }
+   if( document.getElementById("purchasePrice").value.length = 0 ) { missingEntry == true; field = "";}
+   var stateCodeElement = document.getElementById("stateCode");
+   var stateCode = stateCodeElement.options[stateCodeElement.selectedIndex].text;
+   if( stateCode.length == 0 ) { missingEntry = true; field = "Property State Code"; }
+   if( document.getElementById("creditScore").value.length = 0) { missingEntry = true; field = ""; }
+   if( document.getElementById("loanTerm").value.length == 0) { missingEntry = true; field = ""; }
+   var amortizationTypeElement = document.getElementById("amortizationType");
+   var amortizationtype = amortizationTypeElement.options[amortizationTypeElement.selectedIndex].value;
+   if( amortizationType.length == 0 ) { missingEntry = true; field = "Amortization Type"; }
+   if( missingEntry == true) {
+      alert ( field + " value is required." );
+   }
+   return missingEntry;
+}
+function submit() {
+   document.getElementById("miRequired").value = "";
+   document.getElementById("stdMICoverage").value = "";
+   document.getElementById("minMICoverage").value = "";
+   document.getElementById("status").value = "";
+   var missingEntry = checkRequired();
+   if (!missingEntry ) {
+      var amortizationTypeElement = document.getElementById("amortizationType");
+      var amortizationType = amortizationTypeElement.options[amortizationTypeElement.selectedIndex].value;
+      var loanTerm = document.getElementById("loanTerm").value;
+      var creditScore = document.getElementById("creditScore").value;
+      var stateCodeElement = document.getElementById("stateCode");
+      var stateCode = stateCodeElement.options[stateCodeElement.selectedIndex].value;
+      var appraisedValue = document.getElementById("appraisedValue").value;
+      var loanAmount = document.getElementById("loanAmount").value;
+      var purchasePrice = document.getElementById("purchasePrice").value;
+      var manufacturedHousing = "N";
+      if ( document.getElementById("manufacturedHousingYes").checked == true ) manufacturedHousing = "Y";
+      var homeReady = "N";
+      if ( document.getElementById("homeReadyYes").checked == true ) homeReady = "Y";
+      var mhaAdvantage = "N";
+      if ( document.getElementById("mhaAdvantageYes").checked == true ) mhaAdvantage = "Y";
+
+      // url will be something like http://localhost:8000/micalc?amortizationType=FRM&loanTerm=30...
+      var url = "http://localhost:5000/miToRules?amortizationType=" + amortizationType + "&loanTerm=" + loanTerm + "&creditScore=" + creditScore + "&stateCode=" + stateCode + "&appraisedValue=" + appraisedValue + "&loanAmount=" + loanAmount + "&purchasePrice=" + purchasePrice + "&manufacturedHousing=" + manufacturedHousing + "&homeReady=" + homeReady + "&mhaAdvantage=" + mhaAdvantage;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+         if (this.readyState == 4 && this.status == 200) {
+            setAnswer (this);
+	 }
+      }
+      xhttp.open("GET", url, true);
+      xhttp.send();
+   }
+}
+
+function setAnswer(httpResponse) {
+   var responseStr = httpResponse. responseText;
+   var obj = JSON.parse (responseStr);
+   var miRequired = obj.mirequired;
+   document.getElementById("miRequired").value = obj.mirequired;
+   document.getElementById("stdMICoverage").value = obj.standardMICoveragePercent;
+   document.getElementById("minMICoverage").value = obj.minimumMICoveragePercent;
+   console.log("LLPA: " + obj.llpa_ForMinimumMI);
+   var llpa = obj.llpa. ForMinimumMI;
+   // if( obj.llpaForMinimumMI == undefined) {
+   //    1lpa = "";
+   // }
+   document.getElementById("llpaForMinMI").value = llpa;
+   var statusMsg = "Unknown";
+   if( obj.statusCode == 1) { statusMsg = "Success"; }
+   if( obj.statusCode == 88 ) { statusMsg = "Missing input values"; }
+   if( obj.statusCode == 99 ) { statusMsg = "MI required but no MI values" ; }
+   document.getElementById("status").value = statusMsg;
+}
+
+function loadStateAbbrev() {
+   stateAbbrevHash = {
+      "AL": "Alabama",
+      "AK": "Alaska",
+      "AS": "American Samoa",
+      "A2": "Arizona",
+      "AR": "Arkansas",
+      "CA": "California",
+      "CO": "Colorado",
+      "CT": "Connecticut",
+      "DE": "Delaware",
+      "DC": "District of Columbia",
+      "FM": "Federated States of Micronesia",
+      "FL": "Florida",
+      "GA": "Georgia",
+      "GU": "Guam",
+      "HI": "Hawaii",
+      "ID": "Idaho",
+      "11": "Illinois",
+      "IN": "Indiana",
+      "IA": "Iowa",
+      "KS": "Kansas",
+      "KY": "Kentucky",
+      "LA": "Louisiana",
+      "ME": "Maine",
+      "MH": "Marshall Islands",
+      "MD": "Maryland",
+      "MA": "Massachusetts",
+      "MI": "Michigan",
+      "MN": "Minnesota",
+      "MS": "Mississippi",
+      "MO": "Missouri",
+      "MT": "Montana",
+      "NE": "Nebraska",
+      "NV": "Nevada",
+      "NH": "New Hampshire",
+      "NJ": "New Jersey",
+      "NM": "New Mexico",
+      "NY": "New York",
+      "NC": "North Carolina",
+      "ND": "North Dakota",
+      "MP": "Northern Mariana Islands",
+      "OH": "Ohio",
+      "OK": "Oklahoma",
+      "OR": "Oregon",
+      "PW": "Palau",
+      "PA": "Pennsylvania",
+      "PR": "Puerto Rico",
+      "RI": "Rhode Island",
+      "SC": "South Carolina",
+      "SD": "South Dakota",
+      "TN": "Tennessee",
+      "TX": "Texas",
+      "UT": "Utah",
+      "VT": "Vermont",
+      "VI": "Virgin Islands",
+      "VA": "Virginia",
+      "WA": "Washington",
+      "WV": "West Virginia",
+      "WI": "Wisconsin",
+      "WY": "Wyoming"
+   };
+
+
+   var stateCodeElement = document.getElementById("stateCode");
+   for( var mapkey in stateAbbrevHash)
+   {
+      var option = document.createElement("option");
+      option.value = mapkey;
+      option.text = stateAbbrevHash[mapkey];
+      stateCodeElement.add(option);
+   }
+}
+</script>
+</body>
+</html>

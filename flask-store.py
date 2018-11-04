@@ -1,34 +1,39 @@
 from flask import Flask, render_template
 from flask import request
+from StoreDB import StoreDB
 
 app = Flask(__name__)
-
+#storedb = StoreDB()
 
 @app.route('/')
 def render():
    return render_template('index.html')
 
-@app.route('/addCustomer')
-def render_html_template():
-   return render_template('customer-input.html')
+@app.route('/miapi.html')
+def render_miapi():
+   return render_template('miapi.html')
 
 @app.route('/addCustomerToDB')
 def addCustomerToDB():
     firstName = request.args.get('firstName', 'unknown')
     lastName = request.args.get('lastName', 'unknown')
-    print( "firstName:" + firstName + ",lastName:" + lastName)
-    return firstName + " " + lastName + " added to database"
+    jsonstr = '{"first":"' + firstName + '","last":"' + lastName + '"}'
+    print( jsonstr )
+    #newId = storedb.insertCustomer( jsonstr )
+    newId = 1000
+    return firstName + " " + lastName + " added to database with id " + str(newId)
+
+
+@app.route('/getCustomers')
+def getCustomers():
+    #jsonstr = storedb.getCustomers()
+    jsonstr = '[{"id":"","first":"John","last":"Smith"}]'
+    return jsonstr
 
 @app.route('/getmsg')
 def junk():
     return "Hello webpage"
 
-@app.route('/getgreeting')
-def greeting():
-    name = request.args.get('name', 'unknown')
-    if len(name) == 0:
-       name = "unknown"
-    return "Hello " + name
 
 # python flask-webserver.py
 # http://localhost:5000/
