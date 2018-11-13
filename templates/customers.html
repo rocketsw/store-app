@@ -37,11 +37,18 @@ h2 {
     <div class="col-sm-2"></div>
   </div>
 </div>
-
+<br>
+<div class="row">
+   <div class="col-sm-3"></div>
+   <div class="col-sm-2"> <button class="btn" type="button" onclick="edit() ">Edit</button> </div>
+   <div class="col-sm-7"></div>
+</div>
 
 <script>
+var jsonObj = {};
+
 function onLoad() {
-  var url = ""
+  var url = "http://localhost:5000/getCustomers"
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -55,10 +62,53 @@ function onLoad() {
 function loadCustomers(httpResponse)
 {
   var i;
-  //var jsonObj = JSON.parse(httpResponse.responseText);
-  var tablehtml="<table style=\"background-color: white;\"><tr><th>Select</th><th>First Name</th><th>Last Name</th><th>Street</th><th>City</th><th>State</th><th>Zip</th><th>Phone</th></tr></table>";
-
+  jsonObj = JSON.parse(httpResponse.responseText);
+  var tablehtml="<table style=\"background-color: white;\"><tr><th>Select</th><th>First Name</th><th>Last Name</th><th>Street</th><th>City</th><th>State</th><th>Zip</th><th>Phone</th></tr>";
+  for (i = 0; i <jsonObj.length; i++) {
+    //console.log( "id = " + jsonObj[i]["id"] )
+    tablehtml += "<tr><td><input type=\"radio\" name=\"custid\" value=\"" + jsonObj[i].id + "\"></td><td>" + jsonObj[i].first + "</td><td>" + jsonObj[i].last + "</td><td>" + jsonObj[i].street + "</td><td>" + jsonObj[i].city + "</td><td>" + jsonObj[i].state + "</td><td>" + jsonObj[i].zip + "</td><td>" + jsonObj[i].phone + "</td></tr>"
+  }
+  tablehtml += "</table>"
+  console.log(tablehtml)
   document.getElementById("customers").innerHTML = tablehtml;
+}
+function edit() {
+  var radios = document.getElementsByName('custid');
+  var id = -1;
+  for (var i = 0, length = radios.length; i < length; i++)
+  {
+   if (radios[i].checked)
+   {
+      id = radios[i].value;
+      break;
+   }
+  }
+  if ( id > -1 )
+  {
+      //alert( "editing customer " + id + " from row " + i + " " + jsonObj[i]["last"]);
+      editCustomer(i);
+  }
+  else {
+    alert("select a row to edit");
+  }
+}
+function editCustomer( index ) {
+      console.log("index = " + index);
+      if( index >= 0 ) {
+      var first = jsonObj[index].first;
+      var last = jsonObj[index].last;
+      var street = jsonObj[index].street;
+      var city = jsonObj[index].city;
+      var state = jsonObj[index].state;
+      var zip = jsonObj[index].zip;
+      var phone = jsonObj[index].phone;
+      var customerParamStr = "id=" + index + "&first=" + first + "&last=" + last + "&street=" + street + "&city=" + city + "&state=" + state + "&zip=" + zip + "&phone=" + phone;
+      console.log( customerParamStr )
+      window.location.href = "customeredit.html?"+customerParamStr;
+    }
+    else {
+      alert("index out of range");
+    }
 }
 </script>
 

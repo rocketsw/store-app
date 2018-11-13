@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Top Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color:lightblue">
+<STYLE type=text/css>
+  .my-btn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 0 90px;
+  }
+  .dropdown-menu {
+    background-color: lightblue;
+    padding: 0 90px;
+  }
+  .my-small-btn {
+    width:100px;
+    padding:5px;
+  }
+  .body {
+    background-color:lightblue;
+  }
+
+</STYLE>
+<div class="container">
+  <h1 class="text-center">Main Customer Menu</h1>
+  <div class="row">
+    <div class="col-sm-2" ></div>
+    <div class="col-sm-6" >
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Page</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a onclick="addCustomer()">Add Customer</a></li>
+            <li><a onclick="customerList()">Customer List</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="col-sm-4" ></div>
+  </div>
+  <br>
+<div>
+
+</div>
+
+
+</div>
+<script>
+function $(id) { return document.getElementById(id); }
+
+function onClick() { $("fillin").value = "Hello"; }
+
+function addCustomer() {
+   window.location.href = "customeradd.html"
+}
+
+function customerList() {
+   window.location.href = "customers.html"
+}
+
+</script>
+</body>
+</html>
