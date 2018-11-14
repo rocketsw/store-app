@@ -1,0 +1,13 @@
+CREATE TABLE `customer` (
+  `CustomerID` int(11) NOT NULL,
+  `FirstName` char(15) DEFAULT NULL,
+  `LastName` char(20) NOT NULL,
+  `Street` char(25) DEFAULT NULL,
+  `City` char(20) DEFAULT NULL,
+  `State` char(2) DEFAULT NULL,
+  `Zipcode` char(10) DEFAULT NULL,
+  `Phone` char(13) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+insert into CUSTOMER values (0, 'John', 'Jones', '100 Main St','Anytown', 'VA', '10000', '555-100-1000');
+insert into CUSTOMER values (1, 'Bill', 'Smith', '123 Side St','Nowhere', 'VA', '20000', '555-100-5678');
