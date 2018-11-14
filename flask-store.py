@@ -60,7 +60,6 @@ def addCustomerToDB():
     jsonstr = '{"first":"' + first + '","last":"' + last + '","street":"' + street + '","city":"' + city + '","state":"' + state + '","zip":"' + zip + '","phone":"' + phone + '"}'
     print( jsonstr )
     newId = storedb.insertCustomer( jsonstr )
-    newId = 6
     return first + " " + last + " " + street + " " + city + " " + state + " " + zip + " " + phone + " added to database with id " + str(newId)
 
 @app.route('/updateCustomer')
